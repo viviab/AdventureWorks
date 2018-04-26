@@ -8,6 +8,7 @@
 This solution was part of the DotNetMalaga meetup: 
 
 Recipes and tricks for your unit and integration tests in C#
+
 https://www.meetup.com/es-ES/dotnetMALAGA/events/249769425/
 
 ## Architecture & nuget packages 
