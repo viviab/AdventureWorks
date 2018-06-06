@@ -1,13 +1,9 @@
-﻿using System.Collections.Generic;
-using AdventureWorks.Core.Entities.DTO;
-using AdventureWorks.Core.Entities.EF;
+﻿using AdventureWorks.Core.Entities.EF;
 
 namespace AdventureWorks.Core.Interfaces.Persistance.Repositories
 {
-    public interface ICustomersRepository
+    public interface ICustomersRepository : IRepository<Customer>
     {
-        void Add(Customer entity);
-        CustomerDTO GetById(int customerId);
-        IEnumerable<CustomerDTO> GetAll();
+
     }
 }

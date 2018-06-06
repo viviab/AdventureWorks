@@ -53,6 +53,7 @@
     <Compile Include="Persistance\IRepository.cs" />
     <Compile Include="Persistance\Repositories\ICustomersRepository.cs" />
     <Compile Include="Persistance\Repositories\IPeopleRepository.cs" />
+    <Compile Include="Persistance\Repositories\IStoreRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

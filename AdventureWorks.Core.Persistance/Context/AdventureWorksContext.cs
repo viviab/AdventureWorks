@@ -1,10 +1,10 @@
-﻿using System;
+﻿using AdventureWorks.Core.Entities.EF;
+using System;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Data.Entity.Validation;
 using System.Linq;
-using AdventureWorks.Core.Entities.EF;
 
 namespace AdventureWorks.Core.Persistance.Context
 {
@@ -48,6 +48,6 @@ namespace AdventureWorks.Core.Persistance.Context
         }
     }
 
-    
+
 
 }
