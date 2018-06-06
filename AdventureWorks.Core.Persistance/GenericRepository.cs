@@ -7,12 +7,12 @@ using System.Linq;
 
 namespace AdventureWorks.Core.Persistance
 {
-    public class GenericRepository<TEntity> : IRepository<TEntity> where TEntity : class
+    public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
     {
         protected readonly DbContext DbContext;
         protected DbSet<TEntity> _objectSet;
 
-        protected GenericRepository(AdventureWorksContext dbContext)
+        public GenericRepository(AdventureWorksContext dbContext)
         {
             DbContext = dbContext;
             _objectSet = DbContext.Set<TEntity>();

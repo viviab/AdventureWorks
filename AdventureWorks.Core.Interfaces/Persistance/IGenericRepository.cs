@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace AdventureWorks.Core.Interfaces.Persistance
 {
-    public interface IRepository<TEntity> where TEntity : class
+    public interface IGenericRepository<TEntity> where TEntity : class
     {
         IEnumerable<TEntity> GetAll(Func<TEntity, bool> predicate = null);
 

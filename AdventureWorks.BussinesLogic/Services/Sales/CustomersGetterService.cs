@@ -43,7 +43,8 @@ namespace AdventureWorks.BussinesLogic.Services.Sales
             {
                 CustomerId = customer.CustomerId,
                 FirstName = people.FirstName,
-                LastName = people.MiddleName,
+                MiddleName = people.MiddleName,
+                LastName = people.LastName,
                 StoreName = stores.Name,
                 Title = people.Title
             };

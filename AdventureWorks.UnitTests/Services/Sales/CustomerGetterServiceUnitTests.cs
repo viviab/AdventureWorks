@@ -20,7 +20,7 @@ namespace AdventureWorks.UnitTests.Services.Sales
         public void Setup()
         {
 
-            _peopleGetterService = new CustomersGetterService(new CustomerStubRepository(),new PeopleStubRepository(),new StoreStubRepository());
+            _peopleGetterService = new CustomersGetterService(new CustomerStubRepository(), new PeopleStubRepository(), new StoreStubRepository());
             MappingConfiguration.Start();
         }
 
@@ -123,7 +123,7 @@ namespace AdventureWorks.UnitTests.Services.Sales
 
             public Store GetById(int id)
             {
-                throw new NotImplementedException();
+                return new Fixture().Create<Store>();
             }
         }
 
@@ -166,7 +166,7 @@ namespace AdventureWorks.UnitTests.Services.Sales
 
             public Person GetById(int id)
             {
-                throw new NotImplementedException();
+                return new Fixture().Create<Person>();
             }
         }
     }

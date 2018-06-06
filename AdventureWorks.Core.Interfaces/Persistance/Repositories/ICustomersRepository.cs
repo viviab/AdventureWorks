@@ -2,7 +2,7 @@
 
 namespace AdventureWorks.Core.Interfaces.Persistance.Repositories
 {
-    public interface ICustomersRepository : IRepository<Customer>
+    public interface ICustomersRepository : IGenericRepository<Customer>
     {
 
     }
