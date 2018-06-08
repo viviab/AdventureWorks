@@ -48,9 +48,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context\AdventureWorksContext.cs" />
+    <Compile Include="GenericUoW.cs" />
     <Compile Include="Repositories\People\PeopleRepository.cs" />
     <Compile Include="Repositories\Sales\CustomersRepository.cs" />
-    <Compile Include="Repository.cs" />
+    <Compile Include="Repositories\Stores\StoreRepository.cs" />
+    <Compile Include="GenericRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

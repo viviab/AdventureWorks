@@ -1,14 +1,13 @@
-﻿using NUnit.Framework;
-using AdventureWorks.Core.Interfaces.BussinesLogic.Services.Sales;
-using AutoFixture;
-using AdventureWorks.Core.Interfaces.Persistance.Repositories;
-using AdventureWorks.Core.Entities.DTO;
+﻿using AdventureWorks.BussinesLogic.Services.Sales;
 using AdventureWorks.Core.Entities.EF;
+using AdventureWorks.Core.Interfaces.BussinesLogic.Services.Sales;
+using AdventureWorks.Core.Interfaces.Persistance.Repositories;
+using AdventureWorks.UI.Api;
+using AutoFixture;
+using FluentAssertions;
+using NUnit.Framework;
 using System;
 using System.Collections.Generic;
-using AdventureWorks.BussinesLogic.Services.Sales;
-using FluentAssertions;
-using AdventureWorks.UI.Api;
 
 namespace AdventureWorks.UnitTests.Services.Sales
 {
@@ -21,7 +20,7 @@ namespace AdventureWorks.UnitTests.Services.Sales
         public void Setup()
         {
 
-            _peopleGetterService = new CustomersGetterService(new CustomerStubRepository());
+            _peopleGetterService = new CustomersGetterService(new CustomerStubRepository(), new PeopleStubRepository(), new StoreStubRepository());
             MappingConfiguration.Start();
         }
 
@@ -41,24 +40,59 @@ namespace AdventureWorks.UnitTests.Services.Sales
             person.MiddleName.Should().NotBeEmpty("Person.MiddleName is empty");
         }
 
-        private class CustomerStubRepository : ICustomersRepository
+        [Test]
+        public void When_CallGetByAll_ThenReturnValue()
         {
-            public CustomerDTO GetById(int customerId)
+            //Arrange
+            var peopleId = new Fixture().CreateMany<int>();
+
+            var people = _peopleGetterService.GetAll();
+
+            people.Should().NotBeNullOrEmpty("People is empty or null");
+            people.Should().HaveSameCount(peopleId);
+
+        }
+
+        private class CustomerStubRepository : StubRepository<Customer>, ICustomersRepository
+        {
+
+            public override Customer GetById(int id)
             {
-                return new Fixture().Create<CustomerDTO>();
+                return new Fixture().Create<Customer>();
             }
 
-            public void Add(Customer entity)
+            public override IEnumerable<Customer> GetAll(Func<Customer, bool> predicate = null)
             {
-                throw new NotImplementedException();
+                return new Fixture().CreateMany<Customer>();
+            }
+        }
+
+        private class StoreStubRepository : StubRepository<Store>, IStoreRepository
+        {
+            public override Store GetById(int id)
+            {
+                return new Fixture().Create<Store>();
             }
 
-            public IEnumerable<CustomerDTO> GetAll()
+            public override IEnumerable<Store> GetAll(Func<Store, bool> predicate = null)
             {
-                throw new NotImplementedException();
+                return new Fixture().CreateMany<Store>();
             }
 
         }
 
+        private class PeopleStubRepository : StubRepository<Person>, IPeopleRepository
+        {
+            public override Person GetById(int id)
+            {
+                return new Fixture().Create<Person>();
+            }
+
+            public override IEnumerable<Person> GetAll(Func<Person, bool> predicate = null)
+            {
+                return new Fixture().CreateMany<Person>();
+            }
+
+        }
     }
 }

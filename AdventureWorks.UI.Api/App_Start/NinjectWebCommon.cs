@@ -1,19 +1,22 @@
-﻿using System;
-using System.Web;
-using System.Web.Http;
+﻿using AdventureWorks.BussinesLogic.Services.Person;
 using AdventureWorks.BussinesLogic.Services.Sales;
+using AdventureWorks.Core.Infrastructure;
+using AdventureWorks.Core.Interfaces.BussinesLogic.Services.People;
 using AdventureWorks.Core.Interfaces.BussinesLogic.Services.Sales;
+using AdventureWorks.Core.Interfaces.Persistance;
 using AdventureWorks.Core.Interfaces.Persistance.Repositories;
+using AdventureWorks.Core.Persistance;
+using AdventureWorks.Core.Persistance.Repositories.People;
 using AdventureWorks.Core.Persistance.Repositories.Sales;
+using AdventureWorks.Core.Persistance.Repositories.Stores;
 using AdventureWorks.UI.Api;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using Ninject;
 using Ninject.Web.Common;
 using Ninject.Web.Common.WebHost;
-using AdventureWorks.Core.Persistance.Repositories.People;
-using AdventureWorks.Core.Interfaces.BussinesLogic.Services.People;
-using AdventureWorks.BussinesLogic.Services.Person;
-using AdventureWorks.Core.Infrastructure;
+using System;
+using System.Web;
+using System.Web.Http;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(NinjectWebCommon), "Stop")]
@@ -59,9 +62,11 @@ namespace AdventureWorks.UI.Api
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
 
                 kernel.Bind<ICustomersRepository>().To<CustomersRepository>();
+                kernel.Bind<IPeopleRepository>().To<PeopleRepository>();
+                kernel.Bind<IStoreRepository>().To<StoreRepository>();
+                kernel.Bind<IGenericUoW>().To<GenericUoW>();
                 kernel.Bind<ICustomersGetterService>().To<CustomersGetterService>();
                 kernel.Bind<ICustomersAdderService>().To<CustomersAdderService>();
-                kernel.Bind<IPeopleRepository>().To<PeopleRepository>();
                 kernel.Bind<IPeopleAdderService>().To<PeopleAdderService>();
                 kernel.Bind<IRequestValidationService>().To<RequestValidationService>();
 

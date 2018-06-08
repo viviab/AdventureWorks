@@ -1,19 +1,19 @@
-﻿using System;
-using AdventureWorks.Core.Interfaces.BussinesLogic.Services.Sales;
-using AdventureWorks.Core.Interfaces.Persistance.Repositories;
-using AdventureWorks.UI.ViewEntities.Sales;
+﻿using AdventureWorks.Core.Interfaces.BussinesLogic.Services.Sales;
+using AdventureWorks.Core.Interfaces.Persistance;
 using AdventureWorks.Core.Mappers.Sales;
+using AdventureWorks.UI.ViewEntities.Sales;
+using System;
 
 namespace AdventureWorks.BussinesLogic.Services.Sales
 {
     public class CustomersAdderService : ICustomersAdderService
     {
-        private readonly ICustomersRepository _customerRepository;
+        private readonly IGenericUoW _uow;
 
-        public CustomersAdderService(ICustomersRepository customerRepository)
+        public CustomersAdderService(IGenericUoW uow)
         {
-            if (customerRepository == null) throw new ArgumentNullException(nameof(customerRepository));
-            _customerRepository = customerRepository;
+            if (uow == null) throw new ArgumentNullException(nameof(uow));
+            _uow = uow;
 
         }
 
@@ -26,7 +26,10 @@ namespace AdventureWorks.BussinesLogic.Services.Sales
             var customer = CustomersMapper.MapTo(customerRequest);
             customer.ModifiedDate = DateTime.Now;
 
-            _customerRepository.Add(customer);
+            var customerRepository = _uow.GetCustomerRepository();
+            customerRepository.Add(customer);
+            _uow.SaveChanges();
+
             return customer.CustomerId;
         }
     }

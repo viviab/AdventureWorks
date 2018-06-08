@@ -2,7 +2,8 @@
 
 namespace AdventureWorks.Core.Interfaces.Persistance.Repositories
 {
-    public interface IPeopleRepository : IGenericRepository<Person>
+    public interface IStoreRepository : IGenericRepository<Store>
     {
+
     }
 }
