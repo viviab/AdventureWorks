@@ -1,13 +1,14 @@
-﻿using AdventureWorks.Core.Interfaces.BussinesLogic.Services.People;
+﻿using AdventureWorks.BussinesLogic.Services.Person;
+using AdventureWorks.Core.Entities.EF;
+using AdventureWorks.Core.Interfaces.BussinesLogic.Services.People;
+using AdventureWorks.Core.Interfaces.Persistance;
 using AdventureWorks.Core.Interfaces.Persistance.Repositories;
 using AdventureWorks.UI.ViewEntities.People;
 using AutoFixture;
+using FluentAssertions;
+using Moq;
 using NUnit.Framework;
 using System;
-using AdventureWorks.BussinesLogic.Services.Person;
-using Moq;
-using FluentAssertions;
-using AdventureWorks.Core.Entities.EF;
 
 namespace AdventureWorks.UnitTests.Services.People
 {
@@ -17,12 +18,15 @@ namespace AdventureWorks.UnitTests.Services.People
 
         private IPeopleAdderService _peopleServiceAdder;
         private Mock<IPeopleRepository> _peopleRepository;
+        private Mock<IGenericUoW> mockUoW;
 
         [SetUp]
         public void Setup()
         {
+
             _peopleRepository = new Mock<IPeopleRepository>();
-            _peopleServiceAdder = new PeopleAdderService(_peopleRepository.Object);
+            mockUoW.Setup(m => m.GetPeopleRepository()).Returns(_peopleRepository.Object);
+            _peopleServiceAdder = new PeopleAdderService(mockUoW.Object);
         }
 
         [Test]
@@ -38,7 +42,7 @@ namespace AdventureWorks.UnitTests.Services.People
             person.DateOfBirth = DateTime.Now.AddYears(-17);
 
             //Act
-            Action act = () =>  _peopleServiceAdder.Add(person);
+            Action act = () => _peopleServiceAdder.Add(person);
 
             //Assert
             act.Should().Throw<ArgumentException>().WithMessage("Person is not an adult");

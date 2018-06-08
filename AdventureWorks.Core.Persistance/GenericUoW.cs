@@ -85,7 +85,7 @@ namespace AdventureWorks.Core.Persistance
         public void SaveChanges()
         {
 
-            Exception exception = null;
+
             try
             {
                 entities.SaveChanges();
@@ -99,7 +99,7 @@ namespace AdventureWorks.Core.Persistance
                     this.transaction.Rollback();
 
                 //throw controllated exception after the rollback
-                throw exception;
+                throw e;
             }
 
 
