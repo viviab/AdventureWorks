@@ -6,6 +6,8 @@ using AdventureWorks.UI.Api;
 using AutoFixture;
 using FluentAssertions;
 using NUnit.Framework;
+using System;
+using System.Collections.Generic;
 
 namespace AdventureWorks.UnitTests.Services.Sales
 {
@@ -38,12 +40,30 @@ namespace AdventureWorks.UnitTests.Services.Sales
             person.MiddleName.Should().NotBeEmpty("Person.MiddleName is empty");
         }
 
+        [Test]
+        public void When_CallGetByAll_ThenReturnValue()
+        {
+            //Arrange
+            var peopleId = new Fixture().CreateMany<int>();
+
+            var people = _peopleGetterService.GetAll();
+
+            people.Should().NotBeNullOrEmpty("People is empty or null");
+
+
+        }
+
         private class CustomerStubRepository : StubRepository<Customer>, ICustomersRepository
         {
 
             public override Customer GetById(int id)
             {
                 return new Fixture().Create<Customer>();
+            }
+
+            public override IEnumerable<Customer> GetAll(Func<Customer, bool> predicate = null)
+            {
+                return new Fixture().CreateMany<Customer>();
             }
         }
 
@@ -54,6 +74,11 @@ namespace AdventureWorks.UnitTests.Services.Sales
                 return new Fixture().Create<Store>();
             }
 
+            public override IEnumerable<Store> GetAll(Func<Store, bool> predicate = null)
+            {
+                return new Fixture().CreateMany<Store>();
+            }
+
         }
 
         private class PeopleStubRepository : StubRepository<Person>, IPeopleRepository
@@ -61,6 +86,11 @@ namespace AdventureWorks.UnitTests.Services.Sales
             public override Person GetById(int id)
             {
                 return new Fixture().Create<Person>();
+            }
+
+            public override IEnumerable<Person> GetAll(Func<Person, bool> predicate = null)
+            {
+                return new Fixture().CreateMany<Person>();
             }
 
         }

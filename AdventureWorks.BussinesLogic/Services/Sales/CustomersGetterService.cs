@@ -54,7 +54,7 @@ namespace AdventureWorks.BussinesLogic.Services.Sales
 
         public IEnumerable<CustomerViewEntity> GetAll()
         {
-            IEnumerable<CustomerDTO> customerDTO = new List<CustomerDTO>();
+            List<CustomerDTO> customerDTO = new List<CustomerDTO>();
 
             var customers = _customerRepository.GetAll();
             foreach (Customer customer in customers)
@@ -71,6 +71,7 @@ namespace AdventureWorks.BussinesLogic.Services.Sales
                     StoreName = stores.Name,
                     Title = people.Title
                 };
+                customerDTO.Add(newcustomer);
             }
 
 
