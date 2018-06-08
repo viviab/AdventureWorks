@@ -20,12 +20,13 @@ namespace AdventureWorks.Core.Persistance
         IStoreRepository storeRepository;
         DbContextTransaction transaction = null;
         bool disposed = false;
+        bool transactionOpen = false;
 
 
         public GenericUoW(AdventureWorksContext entities, bool createTransaction = false)
         {
             this.entities = entities;
-
+            this.transactionOpen = createTransaction;
             if (createTransaction)
             {
                 OpenTransaction();
@@ -88,12 +89,14 @@ namespace AdventureWorks.Core.Persistance
             try
             {
                 entities.SaveChanges();
-                this.transaction.Commit();
+                if (this.transactionOpen)
+                    this.transaction.Commit();
             }
             catch (Exception e)
             {
                 //TODO log in the system
-                this.transaction.Rollback();
+                if (this.transactionOpen)
+                    this.transaction.Rollback();
 
                 //throw controllated exception after the rollback
                 throw exception;

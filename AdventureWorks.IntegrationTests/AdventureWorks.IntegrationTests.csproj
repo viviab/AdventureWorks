@@ -101,6 +101,7 @@
     <Compile Include="Sales\CustomersControllerTestsAuthorizate.cs" />
     <Compile Include="Sales\CustomersControllerTestsDisposable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sales\CustomersControllerTestsGetById.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

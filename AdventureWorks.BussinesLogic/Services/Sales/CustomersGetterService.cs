@@ -74,8 +74,6 @@ namespace AdventureWorks.BussinesLogic.Services.Sales
                 customerDTO.Add(newcustomer);
             }
 
-
-
             return CustomersMapper.MapTo(customerDTO);
         }
     }

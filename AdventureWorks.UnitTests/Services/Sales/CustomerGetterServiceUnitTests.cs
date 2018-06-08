@@ -49,7 +49,7 @@ namespace AdventureWorks.UnitTests.Services.Sales
             var people = _peopleGetterService.GetAll();
 
             people.Should().NotBeNullOrEmpty("People is empty or null");
-
+            people.Should().HaveSameCount(peopleId);
 
         }
 
