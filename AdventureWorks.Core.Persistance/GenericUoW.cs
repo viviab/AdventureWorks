@@ -15,19 +15,21 @@ namespace AdventureWorks.Core.Persistance
     {
         public Dictionary<Type, object> repositories = new Dictionary<Type, object>();
         readonly AdventureWorksContext entities = null;
-        ICustomersRepository userRepository;
-        IPeopleRepository planRepository;
-        IStoreRepository tokenRepository;
+        ICustomersRepository customerRepository;
+        IPeopleRepository peopleRepository;
+        IStoreRepository storeRepository;
         DbContextTransaction transaction = null;
-        bool createTransaction = false;
         bool disposed = false;
 
 
         public GenericUoW(AdventureWorksContext entities, bool createTransaction = false)
         {
             this.entities = entities;
-            this.transaction = this.entities.Database.CurrentTransaction;
-            this.createTransaction = createTransaction;
+
+            if (createTransaction)
+            {
+                OpenTransaction();
+            }
 
         }
 
@@ -47,33 +49,33 @@ namespace AdventureWorks.Core.Persistance
         public ICustomersRepository GetCustomerRepository()
         {
 
-            if (userRepository == null)
+            if (customerRepository == null)
             {
-                userRepository = new CustomersRepository(entities);
+                customerRepository = new CustomersRepository(entities);
             }
 
-            return userRepository;
+            return customerRepository;
 
         }
 
         public IPeopleRepository GetPeopleRepository()
         {
 
-            if (planRepository == null)
+            if (peopleRepository == null)
             {
-                planRepository = new PeopleRepository(entities);
+                peopleRepository = new PeopleRepository(entities);
             }
-            return planRepository;
+            return peopleRepository;
 
         }
 
         public IStoreRepository GetStoreRepository()
         {
-            if (tokenRepository == null)
+            if (storeRepository == null)
             {
-                tokenRepository = new StoreRepository(entities);
+                storeRepository = new StoreRepository(entities);
             }
-            return tokenRepository;
+            return storeRepository;
         }
 
 
@@ -127,21 +129,18 @@ namespace AdventureWorks.Core.Persistance
         ~GenericUoW()
         {
             Dispose(false);
-
         }
 
         private void OpenTransaction()
         {
-            //The user want to create a transaction
-            if (this.createTransaction == true)
-            {
-                //if it´s not created yet, start the transaction
-                if (this.transaction == null)
-                {
 
-                    this.transaction = this.entities.Database.BeginTransaction();
-                }
+            //if it´s not created yet, start the transaction
+            if (this.transaction == null)
+            {
+
+                this.transaction = this.entities.Database.BeginTransaction();
             }
+
         }
     }
 }

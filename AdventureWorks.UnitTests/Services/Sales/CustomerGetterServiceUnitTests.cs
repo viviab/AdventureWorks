@@ -6,8 +6,6 @@ using AdventureWorks.UI.Api;
 using AutoFixture;
 using FluentAssertions;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
 
 namespace AdventureWorks.UnitTests.Services.Sales
 {
@@ -40,134 +38,31 @@ namespace AdventureWorks.UnitTests.Services.Sales
             person.MiddleName.Should().NotBeEmpty("Person.MiddleName is empty");
         }
 
-        private class CustomerStubRepository : ICustomersRepository
+        private class CustomerStubRepository : StubRepository<Customer>, ICustomersRepository
         {
 
-            public void Add(Customer entity)
-            {
-                throw new NotImplementedException();
-            }
-
-            public IEnumerable<Customer> GetAll(Func<Customer, bool> predicate = null)
-            {
-                throw new NotImplementedException();
-            }
-
-            public Customer GetById(string id)
-            {
-                throw new NotImplementedException();
-            }
-
-            public Customer GetById(int id)
+            public override Customer GetById(int id)
             {
                 return new Fixture().Create<Customer>();
             }
-
-            public void Delete(Customer entity)
-            {
-                throw new NotImplementedException();
-            }
-
-            public void Edit(Customer entity)
-            {
-                throw new NotImplementedException();
-            }
-
-            public void AddRange(IEnumerable<Customer> entities)
-            {
-                throw new NotImplementedException();
-            }
-
-            public void DeleteRange(IEnumerable<Customer> entities)
-            {
-                throw new NotImplementedException();
-            }
         }
 
-        private class StoreStubRepository : IStoreRepository
+        private class StoreStubRepository : StubRepository<Store>, IStoreRepository
         {
-            public void Add(Store entity)
-            {
-                throw new NotImplementedException();
-            }
-
-            public void AddRange(IEnumerable<Store> entities)
-            {
-                throw new NotImplementedException();
-            }
-
-            public void Delete(Store entity)
-            {
-                throw new NotImplementedException();
-            }
-
-            public void DeleteRange(IEnumerable<Store> entities)
-            {
-                throw new NotImplementedException();
-            }
-
-            public void Edit(Store entity)
-            {
-                throw new NotImplementedException();
-            }
-
-            public IEnumerable<Store> GetAll(Func<Store, bool> predicate = null)
-            {
-                throw new NotImplementedException();
-            }
-
-            public Store GetById(string id)
-            {
-                throw new NotImplementedException();
-            }
-
-            public Store GetById(int id)
+            public override Store GetById(int id)
             {
                 return new Fixture().Create<Store>();
             }
+
         }
 
-        private class PeopleStubRepository : IPeopleRepository
+        private class PeopleStubRepository : StubRepository<Person>, IPeopleRepository
         {
-            public void Add(Person entity)
-            {
-                throw new NotImplementedException();
-            }
-
-            public void AddRange(IEnumerable<Person> entities)
-            {
-                throw new NotImplementedException();
-            }
-
-            public void Delete(Person entity)
-            {
-                throw new NotImplementedException();
-            }
-
-            public void DeleteRange(IEnumerable<Person> entities)
-            {
-                throw new NotImplementedException();
-            }
-
-            public void Edit(Person entity)
-            {
-                throw new NotImplementedException();
-            }
-
-            public IEnumerable<Person> GetAll(Func<Person, bool> predicate = null)
-            {
-                throw new NotImplementedException();
-            }
-
-            public Person GetById(string id)
-            {
-                throw new NotImplementedException();
-            }
-
-            public Person GetById(int id)
+            public override Person GetById(int id)
             {
                 return new Fixture().Create<Person>();
             }
+
         }
     }
 }
