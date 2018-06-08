@@ -35,18 +35,21 @@ namespace AdventureWorks.BussinesLogic.Services.Sales
 
             var customer = _customerRepository.GetById(customerId);
 
-            var people = _peopleRepository.GetById((int)customer.PersonId);
-
-            var stores = _storeRepository.GetById((int)customer.StoreId);
+            Core.Entities.EF.Person people = null;
+            Core.Entities.EF.Store store = null;
+            if (customer.PersonId != null)
+                people = _peopleRepository.GetById((int)customer.PersonId);
+            if (customer.StoreId != null)
+                store = _storeRepository.GetById((int)customer.StoreId);
 
             customerDTO = new CustomerDTO()
             {
                 CustomerId = customer.CustomerId,
-                FirstName = people.FirstName,
-                MiddleName = people.MiddleName,
-                LastName = people.LastName,
-                StoreName = stores.Name,
-                Title = people.Title
+                FirstName = people?.FirstName,
+                MiddleName = people?.MiddleName,
+                LastName = people?.LastName,
+                StoreName = store?.Name,
+                Title = people?.Title
             };
 
             return CustomersMapper.MapTo(customerDTO);
