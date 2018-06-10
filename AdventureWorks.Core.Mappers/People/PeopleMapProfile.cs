@@ -9,6 +9,7 @@ namespace AdventureWorks.Core.Mappers.People
         public PeopleMapProfile()
         {
             CreateMap<Person, PersonRequest>();
+            CreateMap<PersonRequest, Person>();
         }
     }
 }
