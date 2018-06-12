@@ -1,5 +1,4 @@
 ﻿using AdventureWorks.Core.Entities.DTO;
-using AdventureWorks.Core.Entities.EF;
 using AdventureWorks.Core.Interfaces.BussinesLogic.Services.Sales;
 using AdventureWorks.Core.Interfaces.Persistance.Repositories;
 using AdventureWorks.Core.Mappers.Sales;
@@ -58,29 +57,9 @@ namespace AdventureWorks.BussinesLogic.Services.Sales
 
         public IEnumerable<CustomerViewEntity> GetAll(int? numberOfResult = null)
         {
-            List<CustomerDTO> customerDTO = new List<CustomerDTO>();
+            IEnumerable<CustomerDTO> customerDTO = new List<CustomerDTO>();
 
-            var customers = numberOfResult == null ? _customerRepository.GetAll() : _customerRepository.GetAll().Take((int)numberOfResult);
-            foreach (Customer customer in customers)
-            {
-                Core.Entities.EF.Person people = null;
-                Core.Entities.EF.Store stores = null;
-                if (customer.PersonId != null)
-                    people = _peopleRepository.GetById((int)customer.PersonId);
-
-                if (customer.StoreId != null)
-                    stores = _storeRepository.GetById((int)customer.StoreId);
-
-                var newcustomer = new CustomerDTO()
-                {
-                    CustomerId = customer.CustomerId,
-                    FirstName = people?.FirstName,
-                    LastName = people?.MiddleName,
-                    StoreName = stores?.Name,
-                    Title = people?.Title
-                };
-                customerDTO.Add(newcustomer);
-            }
+            customerDTO = numberOfResult == null ? _customerRepository.GetAllCustomer() : _customerRepository.GetAllCustomer().Take((int)numberOfResult);
 
             return CustomersMapper.MapTo(customerDTO);
         }

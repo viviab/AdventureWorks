@@ -1,4 +1,5 @@
 ﻿using AdventureWorks.BussinesLogic.Services.Sales;
+using AdventureWorks.Core.Entities.DTO;
 using AdventureWorks.Core.Entities.EF;
 using AdventureWorks.Core.Interfaces.BussinesLogic.Services.Sales;
 using AdventureWorks.Core.Interfaces.Persistance.Repositories;
@@ -65,6 +66,13 @@ namespace AdventureWorks.UnitTests.Services.Sales
             {
                 return new Fixture().CreateMany<Customer>();
             }
+
+            public IEnumerable<CustomerDTO> GetAllCustomer()
+            {
+                return new Fixture().CreateMany<CustomerDTO>();
+            }
+
+
         }
 
         private class StoreStubRepository : StubRepository<Store>, IStoreRepository
