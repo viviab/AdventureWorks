@@ -4,7 +4,7 @@ using AdventureWorks.Core.Persistance.Context;
 
 namespace AdventureWorks.Core.Persistance.Repositories.People
 {
-    public class PeopleRepository : Repository<Person>, IPeopleRepository
+    public class PeopleRepository : GenericRepository<Person>, IPeopleRepository
     {
         public PeopleRepository(AdventureWorksContext dbContext) : base(dbContext)
         {

@@ -1,5 +1,5 @@
 ﻿using AdventureWorks.Core.Interfaces.BussinesLogic.Services.People;
-using AdventureWorks.Core.Interfaces.Persistance.Repositories;
+using AdventureWorks.Core.Interfaces.Persistance;
 using AdventureWorks.Core.Mappers;
 using AdventureWorks.UI.ViewEntities.People;
 using System;
@@ -8,13 +8,13 @@ namespace AdventureWorks.BussinesLogic.Services.Person
 {
     public class PeopleAdderService : IPeopleAdderService
     {
-        private readonly IPeopleRepository _peopleRepository;
-        public PeopleAdderService(IPeopleRepository peopleRepository)
+        private readonly IGenericUoW _uow;
+        public PeopleAdderService(IGenericUoW uow)
         {
-            if (peopleRepository == null)
-                throw new ArgumentNullException(nameof(peopleRepository));
+            if (uow == null)
+                throw new ArgumentNullException(nameof(uow));
 
-            _peopleRepository = peopleRepository;
+            _uow = uow;
         }
 
         public int Add(PersonRequest personRequest)
@@ -26,7 +26,13 @@ namespace AdventureWorks.BussinesLogic.Services.Person
                 throw new ArgumentException("Person is not an adult");
 
             var person = PeopleMapper.MapTo(personRequest);
-            _peopleRepository.Add(person);
+
+            var personRepository = _uow.GetPeopleRepository();
+
+            personRepository.Add(person);
+
+            _uow.SaveChanges();
+
             return person.BusinessEntityId;
         }
     }

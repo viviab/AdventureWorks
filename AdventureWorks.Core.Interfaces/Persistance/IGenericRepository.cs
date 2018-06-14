@@ -1,22 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
 
 namespace AdventureWorks.Core.Interfaces.Persistance
 {
-    public interface IRepository<TEntity> where TEntity : class
+    public interface IGenericRepository<TEntity> where TEntity : class
     {
-        IEnumerable<TEntity> GetAll();
+        IEnumerable<TEntity> GetAll(Func<TEntity, bool> predicate = null);
 
-        IEnumerable<TEntity> FindBy(Expression<Func<TEntity, bool>> predicate);
+        TEntity GetById(string id);
+
+        TEntity GetById(int id);
 
         void Add(TEntity entity);
 
         void Delete(TEntity entity);
 
         void Edit(TEntity entity);
-
-        void EditProperty(TEntity entity, string propertyName);
 
         void AddRange(IEnumerable<TEntity> entities);
 

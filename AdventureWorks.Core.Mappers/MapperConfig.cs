@@ -12,8 +12,8 @@ namespace AdventureWorks.Core.Mappers
         {
             Mapper.Initialize(cfg =>
             {
-                cfg.AddProfile(new CustomersMapProfile());
-                cfg.AddProfile(new PeopleMapProfile());
+                cfg.AddProfile<CustomersMapProfile>();
+                cfg.AddProfile<PeopleMapProfile>();
             });
         }
 

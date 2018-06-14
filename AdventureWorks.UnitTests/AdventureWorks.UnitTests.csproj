@@ -78,6 +78,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\People\PeopleServicesUnitTests.cs" />
     <Compile Include="Services\Sales\CustomerGetterServiceUnitTests.cs" />
+    <Compile Include="StubRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -94,6 +95,10 @@
     <ProjectReference Include="..\AdventureWorks.Core.Interfaces\AdventureWorks.Core.Interfaces.csproj">
       <Project>{a8780207-8682-4c3e-834e-1c9e6e7ffcf8}</Project>
       <Name>AdventureWorks.Core.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AdventureWorks.Core.Persistance\AdventureWorks.Core.Persistance.csproj">
+      <Project>{11F6577F-5B22-4FB9-96BE-45E99C40D064}</Project>
+      <Name>AdventureWorks.Core.Persistance</Name>
     </ProjectReference>
     <ProjectReference Include="..\AdventureWorks.UI.Api\AdventureWorks.UI.Api.csproj">
       <Project>{84a719dc-699b-4832-be5d-ccc6b98409ea}</Project>

@@ -1,8 +1,8 @@
-using System.Web.Http;
 using AdventureWorks.UI.Api;
-using WebActivatorEx;
-using Swashbuckle.Application;
 using AdventureWorks.UI.Api.App_Start;
+using Swashbuckle.Application;
+using System.Web.Http;
+using WebActivatorEx;
 
 [assembly: PreApplicationStartMethod(typeof(SwaggerConfig), "Register")]
 
@@ -36,9 +36,10 @@ namespace AdventureWorks.UI.Api
                         c.SingleApiVersion("v1", "AdventureWorks.UI.Api");
                         c.OperationFilter<AddAuthorizationHeader>();
 
+
                         // If you want the output Swagger docs to be indented properly, enable the "PrettyPrint" option.
                         //
-                        //c.PrettyPrint();
+                        c.PrettyPrint();
 
                         // If your API has multiple versions, use "MultipleApiVersions" instead of "SingleApiVersion".
                         // In this case, you must provide a lambda that tells Swashbuckle which actions should be

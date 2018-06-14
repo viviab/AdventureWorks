@@ -1,12 +1,12 @@
-﻿using System;
+﻿using AdventureWorks.Core.Infrastructure;
+using AdventureWorks.Core.Interfaces.BussinesLogic.Services.Sales;
+using AdventureWorks.UI.ViewEntities.Sales;
+using System;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Web.Http;
-using AdventureWorks.Core.Interfaces.BussinesLogic.Services.Sales;
-using AdventureWorks.UI.ViewEntities.Sales;
-using AdventureWorks.Core.Infrastructure;
 using System.Web;
+using System.Web.Http;
 
 namespace AdventureWorks.UI.Api.Controllers.Sales
 {
@@ -29,13 +29,13 @@ namespace AdventureWorks.UI.Api.Controllers.Sales
 
         [HttpGet]
         [Route("GetAll")]
-        public HttpResponseMessage GetAll()
+        public HttpResponseMessage GetAll(int? numberOfResult = null)
         {
             if (!_requestValidationService.IsValidRequest(HttpContext.Current))
             {
                 return Request.CreateResponse(HttpStatusCode.Unauthorized);
             }
-            var customers = _customersService.GetAll().ToList();
+            var customers = _customersService.GetAll(numberOfResult).ToList();
             return Request.CreateResponse(HttpStatusCode.OK, customers);
         }
 
@@ -50,7 +50,7 @@ namespace AdventureWorks.UI.Api.Controllers.Sales
         [HttpPost]
         public HttpResponseMessage Add(CustomerRequest request)
         {
-           var customerId = _customersAdderService.Add(request);
+            var customerId = _customersAdderService.Add(request);
             return Request.CreateResponse(HttpStatusCode.OK, customerId);
         }
     }

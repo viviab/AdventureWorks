@@ -1,11 +1,8 @@
-﻿using System;
+﻿using AdventureWorks.UI.Api;
+using NUnit.Framework;
+using System;
 using System.Net.Http;
 using System.Web.Http;
-using AdventureWorks.UI.Api;
-using NUnit.Framework;
-using System.Web;
-using System.Collections.Specialized;
-using System.Reflection;
 
 namespace AdventureWorks.IntegrationTests
 {
